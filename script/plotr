@@ -15,7 +15,7 @@ __END__
 
 perl -I lib/ script/plotr help
 
-# plotvenn
+# venn
 perl -I lib/ script/plotr venn t/rocauc.result.tsv t/mcox.05.result.tsv t/mcox.result.tsv
 perl -I lib/ script/plotr venn t/rocauc.result.tsv t/mcox.05.result.tsv --device png --percent
 
@@ -23,3 +23,8 @@ rm t/*.result.tsv.pdf
 rm t/*.result.tsv.png
 
 perl -I lib/ t/03-venn.t
+
+# tree
+perl -I lib/ script/plotr tree t/YDL184C.nwk
+
+perl -I lib/ t/04-tree.t
