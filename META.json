@@ -65,6 +65,17 @@
       }
    },
    "release_status" : "unstable",
+   "resources" : {
+      "bugtracker" : {
+         "web" : "https://github.com/wang-q/App-Plotr/issues"
+      },
+      "homepage" : "https://github.com/wang-q/App-Plotr",
+      "repository" : {
+         "type" : "git",
+         "url" : "git://github.com/wang-q/App-Plotr.git",
+         "web" : "https://github.com/wang-q/App-Plotr"
+      }
+   },
    "version" : "0.0.1",
    "x_authority" : "cpan:WANGQ",
    "x_serialization_backend" : "JSON::PP version 4.02",
