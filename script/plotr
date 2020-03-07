@@ -1,0 +1,25 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+use App::Plotr;
+
+App::Plotr->run;
+
+=head1 OVERVIEW
+
+For help with App::Plotr, run "plotr help"
+
+=cut
+
+__END__
+
+perl -I lib/ script/plotr help
+
+# plotvenn
+perl -I lib/ script/plotr venn t/rocauc.result.tsv t/mcox.05.result.tsv t/mcox.result.tsv
+perl -I lib/ script/plotr venn t/rocauc.result.tsv t/mcox.05.result.tsv --device png --percent
+
+rm t/*.result.tsv.pdf
+rm t/*.result.tsv.png
+
+perl -I lib/ t/03-venn.t
