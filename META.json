@@ -76,7 +76,7 @@
          "web" : "https://github.com/wang-q/App-Plotr"
       }
    },
-   "version" : "0.0.1",
+   "version" : "0.0.2",
    "x_authority" : "cpan:WANGQ",
    "x_serialization_backend" : "JSON::PP version 4.02",
    "x_static_install" : 1

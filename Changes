@@ -2,6 +2,10 @@ Revision history for Perl extension App-Plotr
 
 {{$NEXT}}
 
+0.0.2 2020-03-07T13:45:46Z
+
+    - Add `plotr tree`
+
 0.0.1 2020-03-07T13:16:11Z
 
     - Add `plotr venn`

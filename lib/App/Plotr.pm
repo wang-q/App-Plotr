@@ -1,6 +1,6 @@
 package App::Plotr;
 
-our $VERSION = "0.0.1";
+our $VERSION = "0.0.2";
 
 use strict;
 use warnings;

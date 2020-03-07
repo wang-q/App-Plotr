@@ -31,8 +31,9 @@ App::Plotr draws miscellaneous plots via R
     # R modules
     Rscript -e 'if (!requireNamespace("ggplot2", quietly = TRUE)) { install.packages("ggplot2", repos="https://mirrors.tuna.tsinghua.edu.cn/CRAN") }'
     Rscript -e 'if (!requireNamespace("VennDiagram", quietly = TRUE)) { install.packages("VennDiagram", repos="https://mirrors.tuna.tsinghua.edu.cn/CRAN") }'
+    Rscript -e 'if (!requireNamespace("ape", quietly = TRUE)) { install.packages("ape", repos="https://mirrors.tuna.tsinghua.edu.cn/CRAN") }'
 
-    cpanm --installdeps https://github.com/wang-q/App-Plotr.git
+    cpanm --installdeps https://github.com/wang-q/App-Plotr/archive/0.0.1.tar.gz
     curl -fsSL https://raw.githubusercontent.com/wang-q/App-Plotr/master/share/check_dep.sh | bash
 
     cpanm -nq https://github.com/wang-q/App-Plotr.git
