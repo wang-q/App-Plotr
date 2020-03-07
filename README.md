@@ -1,20 +1,8 @@
-package App::Plotr;
-
-our $VERSION = "0.0.1";
-
-use strict;
-use warnings;
-use App::Cmd::Setup -app;
-
-=pod
-
-=encoding utf-8
-
-=head1 NAME
+# NAME
 
 App::Plotr - Miscellaneous plots via R
 
-=head1 SYNOPSIS
+# SYNOPSIS
 
     plotr <command> [-?h] [long options...]
         -? -h --help  show help
@@ -26,13 +14,13 @@ App::Plotr - Miscellaneous plots via R
 
         venn: Venn diagram
 
-Run C<plotr help command-name> for usage information.
+Run `plotr help command-name` for usage information.
 
-=head1 DESCRIPTION
+# DESCRIPTION
 
 App::Plotr draws miscellaneous plots via R
 
-=head1 INSTALLATION
+# INSTALLATION
 
     # System fonts for R
     Rscript -e 'if (!requireNamespace("extrafont", quietly = TRUE)) { install.packages("extrafont", repos="https://mirrors.tuna.tsinghua.edu.cn/CRAN") }'
@@ -46,19 +34,13 @@ App::Plotr draws miscellaneous plots via R
     # bash share/check_dep.sh
     cpanm -nq App-Plotr-*.tar.gz
 
-=head1 AUTHOR
+# AUTHOR
 
-Qiang Wang E<lt>wang-q@outlook.comE<gt>
+Qiang Wang <wang-q@outlook.com>
 
-=head1 LICENSE
+# LICENSE
 
 This software is copyright (c) 2020 by Qiang Wang.
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.
-
-=cut
-
-1;
-
-__END__

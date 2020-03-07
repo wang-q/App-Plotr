@@ -4,7 +4,6 @@ requires 'IPC::Cmd';
 requires 'List::Util';
 requires 'List::MoreUtils', '0.428';
 requires 'Path::Tiny',      '0.076';
-requires 'Sereal',          '4.005';
 requires 'Statistics::R',   '0.34';
 requires 'Template',        '2.26';
 requires 'Tie::IxHash',     '1.23';

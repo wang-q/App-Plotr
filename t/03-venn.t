@@ -5,13 +5,13 @@ use App::Cmd::Tester;
 
 use App::Plotr;
 
-my $result = test_app( 'App::Plotr' => [qw(help plotvenn)] );
-like( $result->stdout, qr{plotvenn}, 'descriptions' );
+my $result = test_app( 'App::Plotr' => [qw(help venn)] );
+like( $result->stdout, qr{venn}, 'descriptions' );
 
-$result = test_app( 'App::Plotr' => [qw(plotvenn)] );
+$result = test_app( 'App::Plotr' => [qw(venn)] );
 like( $result->error, qr{need .+input file}, 'need infile' );
 
-$result = test_app( 'App::Plotr' => [qw(plotvenn t/not_exists)] );
+$result = test_app( 'App::Plotr' => [qw(venn t/not_exists)] );
 like( $result->error, qr{doesn't exist}, 'infile not exists' );
 
 SKIP: {
@@ -31,7 +31,7 @@ SKIP: {
 
     test_app(
         'App::Plotr' => [
-            "plotvenn",                   "$t_path/rocauc.result.tsv",
+            "venn",                   "$t_path/rocauc.result.tsv",
             "$t_path/mcox.05.result.tsv", "-o",
             "venn.pdf",
         ]
