@@ -34,6 +34,8 @@ App::Plotr draws miscellaneous plots via R
 
 =head1 INSTALLATION
 
+    # Install Perl and R
+
     # System fonts for R
     Rscript -e 'if (!requireNamespace("extrafont", quietly = TRUE)) { install.packages("extrafont", repos="https://mirrors.tuna.tsinghua.edu.cn/CRAN") }'
     Rscript -e 'library(extrafont); font_import(prompt = FALSE); fonts();'
@@ -42,9 +44,10 @@ App::Plotr draws miscellaneous plots via R
     Rscript -e 'if (!requireNamespace("ggplot2", quietly = TRUE)) { install.packages("ggplot2", repos="https://mirrors.tuna.tsinghua.edu.cn/CRAN") }'
     Rscript -e 'if (!requireNamespace("VennDiagram", quietly = TRUE)) { install.packages("VennDiagram", repos="https://mirrors.tuna.tsinghua.edu.cn/CRAN") }'
 
-    cpanm --installdeps App-Plotr-*.tar.gz
-    # bash share/check_dep.sh
-    cpanm -nq App-Plotr-*.tar.gz
+    cpanm --installdeps https://github.com/wang-q/App-Plotr.git
+    curl -fsSL https://raw.githubusercontent.com/wang-q/App-Plotr/master/share/check_dep.sh | bash
+
+    cpanm -nq https://github.com/wang-q/App-Plotr.git
 
 =head1 AUTHOR
 
