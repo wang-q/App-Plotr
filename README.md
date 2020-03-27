@@ -24,14 +24,13 @@ App::Plotr draws miscellaneous plots via R
 
     # Install Perl and R
 
-    # System fonts for R
-    Rscript -e 'if (!requireNamespace("extrafont", quietly = TRUE)) { install.packages("extrafont", repos="https://mirrors.tuna.tsinghua.edu.cn/CRAN") }'
-    Rscript -e 'library(extrafont); font_import(prompt = FALSE); fonts();'
-    
     # R modules
-    Rscript -e 'if (!requireNamespace("ggplot2", quietly = TRUE)) { install.packages("ggplot2", repos="https://mirrors.tuna.tsinghua.edu.cn/CRAN") }'
-    Rscript -e 'if (!requireNamespace("VennDiagram", quietly = TRUE)) { install.packages("VennDiagram", repos="https://mirrors.tuna.tsinghua.edu.cn/CRAN") }'
-    Rscript -e 'if (!requireNamespace("ape", quietly = TRUE)) { install.packages("ape", repos="https://mirrors.tuna.tsinghua.edu.cn/CRAN") }'
+    parallel -j 1 '
+        Rscript -e '\'' if (!requireNamespace("{}", quietly = TRUE)) { install.packages("{}", repos="https://mirrors.tuna.tsinghua.edu.cn/CRAN") } '\''
+    ' ::: extrafont VennDiagram ape ggplot2 scales gridExtra
+
+    # System fonts for R
+    Rscript -e 'library(extrafont); font_import(prompt = FALSE); fonts();'
 
     cpanm --installdeps https://github.com/wang-q/App-Plotr/archive/0.0.1.tar.gz
     curl -fsSL https://raw.githubusercontent.com/wang-q/App-Plotr/master/share/check_dep.sh | bash

@@ -66,12 +66,16 @@ sub execute {
     $R->set( 'figfile',  $opt->{outfile} );
 
     $R->run(q{ library(ape) });
+    $R->run(q{ library(extrafont) });
     $R->run(
         q{
         plot_tree <- function(tree) {
             barlen <- min(median(tree$edge.length), 0.1)
-            if (barlen < 0.1)
+            if (barlen < 0.01) {
+                barlen <- 0.001
+            } else if (barlen < 0.1) {
                 barlen <- 0.01
+            }
             tree <- ladderize(tree)
             plot.phylo(
                 tree,
@@ -93,7 +97,7 @@ sub execute {
             )
             add.scale.bar(
                 x = 0,
-                y = 0.85,
+                y = 0.95,
                 cex = 0.8,
                 lwd = 2,
                 length = barlen
@@ -101,12 +105,13 @@ sub execute {
         }}    # Don't start a new line here
     );
     $R->run(q{ tree <- read.tree(datafile) });
+    $R->run(q{ count <- length(tree$tip.label) });
 
     if ( $opt->{device} eq 'pdf' ) {
-        $R->run(q{ pdf(file=figfile) });
+        $R->run(q{ pdf(file=figfile, family="Helvetica", width = 4, height = 4 * count/16, useDingbats=FALSE) });
     }
     elsif ( $opt->{device} eq 'png' ) {
-        $R->run(q{ png(file=figfile) });
+        $R->run(q{ png(file=figfile, family="Helvetica", width = 4, height = 4 * count/16, units="in", res=200) });
     }
     else {
         Carp::croak "Unrecognized device: [$opt->{device}]\n";
@@ -114,7 +119,6 @@ sub execute {
 
     $R->run(q{ plot_tree(tree) });
     $R->run(q{ dev.off() });
-
 }
 
 1;
