@@ -70,10 +70,10 @@ sub execute {
     $R->run(
         q{
         plot_tree <- function(tree) {
-            barlen <- min(median(tree$edge.length), 0.1)
+            barlen <- min(mean(tree$edge.length), 0.05)
             if (barlen < 0.01) {
-                barlen <- 0.001
-            } else if (barlen < 0.1) {
+                barlen <- 0.005
+            } else if (barlen < 0.05) {
                 barlen <- 0.01
             }
             tree <- ladderize(tree)
