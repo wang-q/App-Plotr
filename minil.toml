@@ -1,7 +1,6 @@
 name = "App-Plotr"
-# badges = ["travis"]
+badges = ['travis', 'codecov', 'metacpan']
 authority="cpan:WANGQ"
 
 module_maker="ModuleBuildTiny"
 static_install = "auto"
-

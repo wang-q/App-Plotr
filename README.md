@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/wang-q/App-Plotr.svg?branch=master)](https://travis-ci.org/wang-q/App-Plotr) [![Coverage Status](http://codecov.io/github/wang-q/App-Plotr/coverage.svg?branch=master)](https://codecov.io/github/wang-q/App-Plotr?branch=master) [![MetaCPAN Release](https://badge.fury.io/pl/App-Plotr.svg)](https://metacpan.org/release/App-Plotr)
 # NAME
 
 App::Plotr - Miscellaneous plots via R
