@@ -17,14 +17,15 @@ App::Plotr - Miscellaneous plots via R
 =head1 SYNOPSIS
 
     plotr <command> [-?h] [long options...]
-        -? -h --help  show help
+            -? -h --help  show help
 
     Available commands:
 
-    commands: list the application's commands
-        help: display a command's help screen
+      commands: list the application's commands
+          help: display a command's help screen
 
-        venn: Venn diagram
+          tree: draw newick trees
+          venn: Venn diagram
 
 Run C<plotr help command-name> for usage information.
 
@@ -37,7 +38,7 @@ App::Plotr draws miscellaneous plots via R
     # Install Perl and R
 
     # R modules
-    parallel -j 1 '
+    parallel -j 1 -k --line-buffer '
         Rscript -e '\'' if (!requireNamespace("{}", quietly = TRUE)) { install.packages("{}", repos="https://mirrors.tuna.tsinghua.edu.cn/CRAN") } '\''
         ' ::: extrafont VennDiagram ape ggplot2 scales gridExtra survival pROC
 
