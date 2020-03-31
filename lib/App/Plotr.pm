@@ -44,8 +44,9 @@ App::Plotr draws miscellaneous plots via R
     # System fonts for R
     Rscript -e 'library(extrafont); font_import(prompt = FALSE); fonts();'
 
-    # On errors of missing font, clear the cache of extrafont
-    # rm /usr/local/lib/R/3.6/site-library/extrafontdb/metrics/*
+    # On errors of missing font
+    # rm -fr /usr/local/lib/R/3.6/site-library/extrafont/
+    # rm -fr /usr/local/lib/R/3.6/site-library/extrafontdb/
 
     cpanm --installdeps https://github.com/wang-q/App-Plotr/archive/0.0.1.tar.gz
     curl -fsSL https://raw.githubusercontent.com/wang-q/App-Plotr/master/share/check_dep.sh | bash
