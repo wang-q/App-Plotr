@@ -108,10 +108,10 @@ sub execute {
     $R->run(q{ count <- length(tree$tip.label) });
 
     if ( $opt->{device} eq 'pdf' ) {
-        $R->run(q{ pdf(file=figfile, family="Helvetica", width = 4, height = 4 * count/16, useDingbats=FALSE) });
+        $R->run(q{ pdf(file=figfile, family="Arial", width = 4, height = 4 * count/16, useDingbats=FALSE) });
     }
     elsif ( $opt->{device} eq 'png' ) {
-        $R->run(q{ png(file=figfile, family="Helvetica", width = 4, height = 4 * count/16, units="in", res=200) });
+        $R->run(q{ png(file=figfile, family="Arial", width = 4, height = 4 * count/16, units="in", res=200) });
     }
     else {
         Carp::croak "Unrecognized device: [$opt->{device}]\n";

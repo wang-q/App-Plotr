@@ -39,10 +39,13 @@ App::Plotr draws miscellaneous plots via R
     # R modules
     parallel -j 1 '
         Rscript -e '\'' if (!requireNamespace("{}", quietly = TRUE)) { install.packages("{}", repos="https://mirrors.tuna.tsinghua.edu.cn/CRAN") } '\''
-    ' ::: extrafont VennDiagram ape ggplot2 scales gridExtra
+        ' ::: extrafont VennDiagram ape ggplot2 scales gridExtra survival pROC
 
     # System fonts for R
     Rscript -e 'library(extrafont); font_import(prompt = FALSE); fonts();'
+
+    # On errors of missing font, clear the cache of extrafont
+    # rm /usr/local/lib/R/3.6/site-library/extrafontdb/metrics/*
 
     cpanm --installdeps https://github.com/wang-q/App-Plotr/archive/0.0.1.tar.gz
     curl -fsSL https://raw.githubusercontent.com/wang-q/App-Plotr/master/share/check_dep.sh | bash
