@@ -64,7 +64,7 @@ sub validate_args {
 sub execute {
     my ( $self, $opt, $args ) = @_;
 
-    my @fills  = qw{red blue green orange purple};
+    my @fills  = qw{indianred1 deepskyblue palegreen burlywood purple};
     my @alphas = (0.5) x 5;
 
     my @cats = map { Path::Tiny::path($_)->basename(qr/\..+?/) } @{$args};

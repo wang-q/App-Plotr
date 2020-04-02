@@ -122,10 +122,10 @@ sub execute {
     );
 
     if ( $opt->{device} eq 'pdf' ) {
-        $R->run(q{ pdf(file=figfile, family="Arial", width = 4, height = 4, useDingbats=FALSE) });
+        $R->run(q{ pdf(file=figfile, family="Arial", width = 3, height = 3, useDingbats=FALSE) });
     }
     elsif ( $opt->{device} eq 'png' ) {
-        $R->run(q{ png(file=figfile, family="Arial", width = 4, height = 4, units="in", res=200) });
+        $R->run(q{ png(file=figfile, family="Arial", width = 3, height = 3, units="in", res=200) });
     }
     else {
         Carp::croak "Unrecognized device: [$opt->{device}]\n";
@@ -155,15 +155,15 @@ sub execute {
             $R->run(
                 qq{
                 plot <- plot +
-                geom_line(colour="blue", size = 0.5) +
-                geom_point(colour="blue", fill="blue", shape=23) }
+                geom_line(colour="deepskyblue", size = 0.5) +
+                geom_point(colour="deepskyblue", fill="white", shape=23) }
             );
         }        elsif ( $opt->{style} eq "red" ) {
             $R->run(
                 qq{
                 plot <- plot +
-                geom_line(colour="red", size = 0.5) +
-                geom_point(colour="red", fill="white", shape=22) }
+                geom_line(colour="indianred", size = 0.5) +
+                geom_point(colour="indianred", fill="white", shape=22) }
             );
         }
     }
