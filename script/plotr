@@ -28,3 +28,8 @@ perl -I lib/ t/03-venn.t
 perl -I lib/ script/plotr tree t/YDL184C.nwk
 
 perl -I lib/ t/04-tree.t
+
+# xlsx
+perl -I lib/ script/plotr xlsx t/formats.xlsx -o stdout
+
+perl -I lib/ t/05-xlsx.t

@@ -11,8 +11,11 @@ use IPC::Cmd qw();
 use List::Util qw();
 use List::MoreUtils qw();
 use Path::Tiny qw();
+use Spreadsheet::XLSX;
+use Spreadsheet::ParseExcel;
 use Statistics::R;
 use Template;
+use Text::CSV_XS qw();
 use Tie::IxHash;
 use YAML::Syck qw();
 

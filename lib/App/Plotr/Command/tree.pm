@@ -14,7 +14,6 @@ sub opt_spec {
     return (
         [ "outfile|o=s", "Output filename", ],
         [ "device=s", "png or pdf", { default => "pdf" }, ],
-        [ "percent",   "format percent", ],
         { show_defaults => 1, }
     );
 }

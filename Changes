@@ -2,6 +2,7 @@ Revision history for Perl extension App-Plotr
 
 {{$NEXT}}
 
+    - Add `plotr xlsx`
     - Setup travis
     - Add badges
 
