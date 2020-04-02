@@ -50,7 +50,7 @@ sub validate_args {
     }
 
     if ( !exists $opt->{outfile} ) {
-        $opt->{outfile} = Path::Tiny::path( $args->[0] )->absolute . ".$opt->{tsv}";
+        $opt->{outfile} = Path::Tiny::path( $args->[0] )->absolute . ".tsv";
     }
 
 }
