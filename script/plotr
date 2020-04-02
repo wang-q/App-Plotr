@@ -33,3 +33,15 @@ perl -I lib/ t/04-tree.t
 perl -I lib/ script/plotr xlsx t/formats.xlsx -o stdout
 
 perl -I lib/ t/05-xlsx.t
+
+# lines
+perl -I lib/ script/plotr lines t/d1.tsv
+perl -I lib/ script/plotr lines t/d1.tsv --style red
+
+perl -I lib/ script/plotr lines t/d1.tsv \
+    --xl "Distance to indels ({italic(d)[1]})" \
+    --yl "Nucleotide divergence ({italic(D)})" \
+    --ymm 0.0,0.02 \
+    --xmm 0,5
+
+perl -I lib/ t/06-lines.t
