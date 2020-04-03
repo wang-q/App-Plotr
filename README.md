@@ -13,8 +13,10 @@ App::Plotr - Miscellaneous plots via R
       commands: list the application's commands
           help: display a command's help screen
 
+         lines: scatter lines
           tree: draw newick trees
           venn: Venn diagram
+          xlsx: convert xlsx to tsv
 
 Run `plotr help command-name` for usage information.
 
