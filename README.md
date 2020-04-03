@@ -29,7 +29,9 @@ App::Plotr draws miscellaneous plots via R
     # R modules
     parallel -j 1 -k --line-buffer '
         Rscript -e '\'' if (!requireNamespace("{}", quietly = TRUE)) { install.packages("{}", repos="https://mirrors.tuna.tsinghua.edu.cn/CRAN") } '\''
-        ' ::: extrafont VennDiagram ape ggplot2 scales gridExtra survival pROC
+        ' ::: \
+            extrafont VennDiagram ggplot2 scales gridExtra \
+            readr ape survival pROC
 
     # System fonts for R
     Rscript -e 'library(extrafont); font_import(prompt = FALSE); fonts();'
