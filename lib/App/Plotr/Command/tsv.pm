@@ -17,6 +17,9 @@ sub opt_spec {
         [ "header",      "head line", ],
         [ "font_name=s", "font name", { default => "Arial" }, ],
         [ "font_size=i", "font size", { default => 10 }, ],
+        [ "le=s@",       "less than or equal to - f:float", ],
+        [ "ge=s@",       "greater than or equal to - f:float", ],
+        [ "bt=s@",       "between - f:float:float", ],
         { show_defaults => 1, }
     );
 }
@@ -100,6 +103,27 @@ sub execute {
         $format = {
             HEADER => $workbook->add_format( %header, %font, ),
             NORMAL => $workbook->add_format( color => 'black', %font, ),
+
+            # Light red fill with dark red text
+            LE => $workbook->add_format(
+                bg_color => '#FFC7CE',
+                color    => '#9C0006',
+                %font,
+            ),
+
+            # Light yellow fill with dark yellow text
+            GE => $workbook->add_format(
+                bg_color => '#FFEB9C',
+                color    => '#9C6500',
+                %font,
+            ),
+
+            # Green fill with dark green text
+            BT => $workbook->add_format(
+                bg_color => '#C6EFCE',
+                color    => '#006100',
+                %font,
+            ),
         };
     }
 
@@ -119,6 +143,70 @@ sub execute {
         $worksheet->write_row( $row_cursor, 0, $colref, $format->{NORMAL} );
 
         $row_cursor++;
+    }
+
+    # conditional formatting
+    if ( $opt->{le} ) {
+        for my $f ( @{ $opt->{le} } ) {
+            my ( $col, $crit ) = split /:/, $f;
+            $col--;
+
+            my $row_f = 0;
+            $row_f++ if $opt->{header};
+
+            $worksheet->conditional_formatting(
+                $row_f, $col,
+                $row_cursor,
+                $col,
+                {   type     => 'cell',
+                    criteria => 'less than or equal to',
+                    value    => $crit,
+                    format   => $format->{LE},
+                }
+            );
+        }
+    }
+    if ( $opt->{ge} ) {
+        for my $f ( @{ $opt->{ge} } ) {
+
+            my ( $col, $crit ) = split /:/, $f;
+            $col--;
+
+            my $row_f = 0;
+            $row_f++ if $opt->{header};
+
+            $worksheet->conditional_formatting(
+                $row_f, $col,
+                $row_cursor,
+                $col,
+                {   type     => 'cell',
+                    criteria => 'greater than or equal to',
+                    value    => $crit,
+                    format   => $format->{GE},
+                }
+            );
+        }
+    }
+    if ( $opt->{bt} ) {
+        for my $f ( @{ $opt->{bt} } ) {
+            my ( $col, $crit, $crit2 ) = split /:/, $f;
+            $col--;
+
+            my $row_f = 0;
+            $row_f++ if $opt->{header};
+
+            $worksheet->conditional_formatting(
+                $row_f, $col,
+                $row_cursor,
+                $col,
+                {   type     => 'cell',
+                    criteria => 'between',
+                    minimum  => $crit,
+                    maximum  => $crit2,
+                    format   => $format->{BT},
+                }
+            );
+        }
     }
 
     $in_fh->close;

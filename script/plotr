@@ -49,4 +49,6 @@ perl -I lib/ t/06-lines.t
 # xlsx
 perl -I lib/ script/plotr tsv t/mcox.05.result.tsv --header
 
+perl -I lib/ script/plotr tsv t/rocauc.result.tsv --header --le 4:0.5 --ge 4:0.6 --bt 4:0.52:0.58
+
 perl -I lib/ t/07-tsv.t
