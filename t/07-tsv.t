@@ -34,9 +34,8 @@ like( $result->error, qr{doesn't exist}, 'infile not exists' );
 
     test_app(
         'App::Plotr' => [
-            "tsv",  "$t_path/rocauc.result.tsv", "-o",   "rocauc.xlsx",
-            "--le", "4:0.5",                     "--ge", "4:0.6",
-            "--bt", "4:0.52:0.58",
+            "tsv", "$t_path/rocauc.result.tsv", "-o", "rocauc.xlsx",
+            "--le", "4:0.5", "--ge", "4:0.6", "--bt", "4:0.52:0.58", "--contain", "2:m03",
         ]
     );
     ok( $tempdir->child("rocauc.xlsx")->is_file, 'xlsx created' );

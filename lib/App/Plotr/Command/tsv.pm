@@ -20,6 +20,7 @@ sub opt_spec {
         [ "le=s@",       "less than or equal to - f:float", ],
         [ "ge=s@",       "greater than or equal to - f:float", ],
         [ "bt=s@",       "between - f:float:float", ],
+        [ "contain=s@",  "containing - f:str", ],
         { show_defaults => 1, }
     );
 }
@@ -101,8 +102,9 @@ sub execute {
             bottom   => 2,
         );
         $format = {
-            HEADER => $workbook->add_format( %header, %font, ),
-            NORMAL => $workbook->add_format( color => 'black', %font, ),
+            HEADER    => $workbook->add_format( %header, %font, ),
+            NORMAL    => $workbook->add_format( color => 'black', %font, ),
+            HIGHLIGHT => $workbook->add_format( color => 'blue', bold => 1, %font, ),
 
             # Light red fill with dark red text
             LE => $workbook->add_format(
@@ -204,6 +206,26 @@ sub execute {
                     minimum  => $crit,
                     maximum  => $crit2,
                     format   => $format->{BT},
+                }
+            );
+        }
+    }
+    if ( $opt->{contain} ) {
+        for my $f ( @{ $opt->{contain} } ) {
+            my ( $col, $crit, ) = split /:/, $f;
+            $col--;
+
+            my $row_f = 0;
+            $row_f++ if $opt->{header};
+
+            $worksheet->conditional_formatting(
+                $row_f, $col,
+                $row_cursor,
+                $col,
+                {   type     => 'text',
+                    criteria => 'containing',
+                    value    => $crit,
+                    format   => $format->{HIGHLIGHT},
                 }
             );
         }
