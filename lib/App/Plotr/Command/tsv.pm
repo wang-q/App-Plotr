@@ -158,7 +158,7 @@ sub execute {
 
             $worksheet->conditional_formatting(
                 $row_f, $col,
-                $row_cursor,
+                $row_cursor - 1,
                 $col,
                 {   type     => 'cell',
                     criteria => 'less than or equal to',
@@ -179,7 +179,7 @@ sub execute {
 
             $worksheet->conditional_formatting(
                 $row_f, $col,
-                $row_cursor,
+                $row_cursor - 1,
                 $col,
                 {   type     => 'cell',
                     criteria => 'greater than or equal to',
@@ -199,7 +199,7 @@ sub execute {
 
             $worksheet->conditional_formatting(
                 $row_f, $col,
-                $row_cursor,
+                $row_cursor - 1,
                 $col,
                 {   type     => 'cell',
                     criteria => 'between',
@@ -220,7 +220,7 @@ sub execute {
 
             $worksheet->conditional_formatting(
                 $row_f, $col,
-                $row_cursor,
+                $row_cursor - 1,
                 $col,
                 {   type     => 'text',
                     criteria => 'containing',
