@@ -21,16 +21,25 @@ like( $result->error, qr{doesn't exist}, 'infile not exists' );
     my $tempdir = Path::Tiny->tempdir;
     chdir $tempdir;
 
-    test_app( 'App::Plotr' => [ "tsv", "$t_path/mcox.05.result.tsv", "-o", "tmp.xlsx", ] );
-    ok( $tempdir->child("tmp.xlsx")->is_file, 'xlsx created' );
+    test_app( 'App::Plotr' => [ "tsv", "$t_path/mcox.05.result.tsv", "-o", "mcox.xlsx", ] );
+    ok( $tempdir->child("mcox.xlsx")->is_file, 'xlsx created' );
 
-    my $xlsx  = Spreadsheet::XLSX->new( $tempdir->child("tmp.xlsx")->stringify );
+    my $xlsx  = Spreadsheet::XLSX->new( $tempdir->child("mcox.xlsx")->stringify );
     my $sheet = $xlsx->{Worksheet}[0];
 
     is( $sheet->{Name},             "mcox.05.result", "Sheet Name" );
     is( $sheet->{MaxRow},           2040 - 1,         "Sheet MaxRow" );
     is( $sheet->{MaxCol},           3 - 1,            "Sheet MaxCol" );
     is( $sheet->{Cells}[0][0]{Val}, "#marker",        "Cell content 1" );
+
+    test_app(
+        'App::Plotr' => [
+            "tsv",  "$t_path/rocauc.result.tsv", "-o",   "rocauc.xlsx",
+            "--le", "4:0.5",                     "--ge", "4:0.6",
+            "--bt", "4:0.52:0.58",
+        ]
+    );
+    ok( $tempdir->child("rocauc.xlsx")->is_file, 'xlsx created' );
 
     chdir $cwd;    # Won't keep tempdir
 }
