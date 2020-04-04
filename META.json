@@ -44,8 +44,8 @@
          "requires" : {
             "AlignDB::IntSpan" : "v1.1.0",
             "App::Cmd" : "0.330",
-            "App::Fasops" : "v0.5.16",
             "App::RL" : "v0.3.0",
+            "Excel::Writer::XLSX" : "1.03",
             "IO::Zlib" : "0",
             "IPC::Cmd" : "0",
             "List::MoreUtils" : "0.428",

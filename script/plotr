@@ -45,3 +45,8 @@ perl -I lib/ script/plotr lines t/d1.tsv \
     --xmm 0,5
 
 perl -I lib/ t/06-lines.t
+
+# xlsx
+perl -I lib/ script/plotr tsv t/mcox.05.result.tsv --header
+
+perl -I lib/ t/07-tsv.t
