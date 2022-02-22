@@ -4,7 +4,7 @@
       "Qiang Wang <wang-q@outlook.com>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Minilla/v3.1.9, CPAN::Meta::Converter version 2.150010",
+   "generated_by" : "Minilla/v3.1.15, CPAN::Meta::Converter version 2.150010",
    "license" : [
       "perl_5"
    ],
@@ -75,12 +75,15 @@
       "homepage" : "https://github.com/wang-q/App-Plotr",
       "repository" : {
          "type" : "git",
-         "url" : "git://github.com/wang-q/App-Plotr.git",
+         "url" : "https://github.com/wang-q/App-Plotr.git",
          "web" : "https://github.com/wang-q/App-Plotr"
       }
    },
    "version" : "0.0.2",
    "x_authority" : "cpan:WANGQ",
-   "x_serialization_backend" : "JSON::PP version 4.02",
+   "x_contributors" : [
+      "Qiang Wang <wang-q@users.noreply.github.com>"
+   ],
+   "x_serialization_backend" : "JSON::PP version 4.06",
    "x_static_install" : 1
 }

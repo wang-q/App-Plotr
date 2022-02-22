@@ -32,10 +32,16 @@ App::Plotr draws miscellaneous plots via R
     parallel -j 1 -k --line-buffer '
         Rscript -e '\'' if (!requireNamespace("{}", quietly = TRUE)) { install.packages("{}", repos="https://mirrors.tuna.tsinghua.edu.cn/CRAN") } '\''
         ' ::: \
-            extrafont VennDiagram ggplot2 scales gridExtra \
+            extrafont remotes \
+            VennDiagram ggplot2 scales gridExtra \
             readr ape survival pROC
+    
+    # The Arial font under Ubuntu
+    sudo apt install ttf-mscorefonts-installer
+    sudo fc-cache -f
 
     # System fonts for R
+    Rscript -e 'library(remotes); options(repos = c(CRAN = "https://mirrors.tuna.tsinghua.edu.cn/CRAN")); remotes::install_version("Rttf2pt1", version = "1.3.8")'
     Rscript -e 'library(extrafont); font_import(prompt = FALSE); fonts();'
 
     # On errors of missing font
