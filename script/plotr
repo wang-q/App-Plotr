@@ -67,7 +67,14 @@ Rscript -e '
     '
 mv hist.tsv t/
 
-perl -I lib/ script/plotr hist t/hist.tsv
+perl -I lib/ script/plotr hist t/hist.tsv \
+    -p \
+    --bins 2
+
+perl -I lib/ script/plotr hist t/hist.tsv \
+    -g 2 \
+    -p \
+    --bins 2
 
 perl -I lib/ script/plotr hist t/hist.tsv \
     -g 2 \

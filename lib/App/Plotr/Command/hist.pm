@@ -12,16 +12,17 @@ sub abstract {
 
 sub opt_spec {
     return (
-        [ "outfile|o=s", "Output filename", ],
-        [ "device=s",    "png or pdf", { default => "pdf" }, ],
-        [ "xl=s",        "X label", ],
-        [ "yl=s",        "Y label", ],
-        [ "col|c=i",     "which column to count", { default => 1 }, ],
-        [ "group|g=i",   "the group column", ],
-        [ "bins=i",      "number of bins", { default => 30 }, ],
-        [ "width=i",     "the width of bins", ],
-        [ "xmm=s",       "X min,max", ],
-        [ "ymm=s",       "Y min,max", ],
+        [ "outfile|o=s",  "Output filename", ],
+        [ "device=s",     "png or pdf", { default => "pdf" }, ],
+        [ "xl=s",         "X label", ],
+        [ "yl=s",         "Y label", ],
+        [ "col|c=i",      "which column to count", { default => 1 }, ],
+        [ "group|g=i",    "the group column", ],
+        [ "bins=i",       "number of bins", { default => 30 }, ],
+        [ "width=i",      "the width of bins", ],
+        [ "proportion|p", "Y axis as proportions", ],
+        [ "xmm=s",        "X min,max", ],
+        [ "ymm=s",        "Y min,max", ],
         { show_defaults => 1, }
     );
 }
@@ -113,38 +114,54 @@ q{ png(file=figfile, family="Arial", width = 3, height = 3, units="in", res=200)
     }
 
     $R->run(q{ mydata <- read_tsv(file, col_names = TRUE) });
+
+    # avoid aes_string which can't handle stat()
+    $R->run(qq{ x <- names(mydata)[$opt->{col}] });
+    my $x = $R->get('x');
+
+    my $g = q{};
     if ( defined $opt->{group} ) {
-        $R->run(
-            qq{
-            mymap <- aes_string(
-                x=names(mydata)[$opt->{col}],
-                group=names(mydata)[$opt->{group}]
-            ) }
-        );
+        $R->run(qq{ g <- names(mydata)[$opt->{group}] });
+        $g = $R->get('g');
+    }
+
+    if ( defined $opt->{group} ) {
+        $R->run(qq{ mymap <- aes( x=$x, group=$g ) });
     }
     else {
-        $R->run(qq{ mymap <- aes_string(x=names(mydata)[$opt->{col}]) });
+        $R->run(qq{ mymap <- aes( x=$x ) });
     }
     $R->run(q{ plot <- plot_hist(mydata, mymap) });
 
     # bins and binwidth
     my @hist_opts = ();
     if ( defined $opt->{width} ) {
-        push @hist_opts, qq{ binwidth=$opt->{width}};
+        push @hist_opts, qq{ binwidth=$opt->{width} };
     }
     elsif ( defined $opt->{bins} ) {
-        push @hist_opts, qq{ bins=$opt->{bins}};
+        push @hist_opts, qq{ bins=$opt->{bins} };
     }
 
     # group fills
     if ( defined $opt->{group} ) {
-        push @hist_opts, q{ position="dodge"};
-        push @hist_opts,
-          qq{ mapping=aes_string(fill=names(mydata)[$opt->{group}]) };
+        push @hist_opts, q{ position="dodge" };
+        if ( defined $opt->{proportion} ) {
+            push @hist_opts,
+              qq{ mapping=aes( fill=$g, y=stat(density * width) ) };
+        }
+        else {
+            push @hist_opts, qq{ mapping=aes( fill=$g ) };
+        }
     }
     else {
         push @hist_opts, qq{ color="white" };
-        push @hist_opts, qq{ mapping=aes(fill="indianred1") };
+        if ( defined $opt->{proportion} ) {
+            push @hist_opts,
+              qq{ mapping=aes( fill="indianred1", y=stat(density * width) ) };
+        }
+        else {
+            push @hist_opts, qq{ mapping=aes(fill="indianred1") };
+        }
     }
     my $hist_opt = join ",", @hist_opts;
     $R->run(qq{ plot <- plot + geom_histogram( $hist_opt ) });
