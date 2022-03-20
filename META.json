@@ -78,7 +78,7 @@
          "web" : "https://github.com/wang-q/App-Plotr"
       }
    },
-   "version" : "0.0.2",
+   "version" : "0.0.3",
    "x_authority" : "cpan:WANGQ",
    "x_contributors" : [
       "Qiang Wang <wang-q@users.noreply.github.com>"
