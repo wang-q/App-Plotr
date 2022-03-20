@@ -24,7 +24,7 @@ sub opt_spec {
 }
 
 sub usage_desc {
-    return "plotr lines [options] <infile> [more infiles]";
+    return "plotr lines [options] <infile>";
 }
 
 sub description {

@@ -5,6 +5,7 @@ Revision history for Perl extension App-Plotr
     - Add `plotr xlsx`
     - Add `plotr tsv`
     - Add `plotr lines`
+    - Add `plotr hist`
     - Setup travis
     - Add badges
 

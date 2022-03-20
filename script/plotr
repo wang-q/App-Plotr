@@ -13,6 +13,8 @@ For help with App::Plotr, run "plotr help"
 
 __END__
 
+# FAKE_RELEASE=1 minil release
+
 perl -I lib/ script/plotr help
 
 # venn
@@ -52,3 +54,26 @@ perl -I lib/ script/plotr lines t/d1.tsv \
     --xmm 0,5
 
 perl -I lib/ t/07-lines.t
+
+# hist
+Rscript -e '
+    library(readr)
+    set.seed(1234)
+    df <- data.frame(
+        weight=round(c(rnorm(200, mean=55, sd=5), rnorm(200, mean=65, sd=5))),
+        sex=factor(rep(c("F", "M"), each=200))
+    )
+    write_tsv(df, "hist.tsv")
+    '
+mv hist.tsv t/
+
+perl -I lib/ script/plotr hist t/hist.tsv
+
+perl -I lib/ script/plotr hist t/hist.tsv \
+    -g 2 \
+    --width 2 \
+    --xl "Weight ({bold(M/F)})" \
+    --xmm 45,75 \
+    --ymm 0,40
+
+perl -I lib/ t/08-hist.t
