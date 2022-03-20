@@ -6,7 +6,8 @@ App::Plotr - Miscellaneous plots via R
 # SYNOPSIS
 
     plotr <command> [-?h] [long options...]
-            -? -h --help  show help
+            --help (or -h)  show help
+                            aka -?
 
     Available commands:
 
@@ -15,6 +16,7 @@ App::Plotr - Miscellaneous plots via R
 
          lines: scatter lines
           tree: draw newick trees
+           tsv: convert tsv to xlsx
           venn: Venn diagram
           xlsx: convert xlsx to tsv
 
@@ -35,7 +37,7 @@ App::Plotr draws miscellaneous plots via R
             extrafont remotes \
             VennDiagram ggplot2 scales gridExtra \
             readr ape survival pROC
-    
+
     # The Arial font under Ubuntu
     sudo apt install ttf-mscorefonts-installer
     sudo fc-cache -f

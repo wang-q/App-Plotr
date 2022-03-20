@@ -15,7 +15,6 @@ requires 'Spreadsheet::XLSX',       '0.15';
 requires 'Text::CSV_XS',            '1.41';
 
 requires 'AlignDB::IntSpan', '1.1.0';
-requires 'App::RL',          '0.3.0';
 requires 'perl',             '5.018001';
 
 on 'test' => sub {

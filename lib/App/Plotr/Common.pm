@@ -22,14 +22,34 @@ use Spreadsheet::ParseExcel;
 use Text::CSV_XS qw();
 
 use AlignDB::IntSpan;
-use App::RL::Common;
+
+sub read_lines {
+    my $infile = shift;
+
+    my $in_fh;
+    if ( lc $infile eq "stdin" ) {
+        $in_fh = *STDIN{IO};
+    }
+    else {
+        $in_fh = IO::Zlib->new( $infile, "rb" );
+    }
+
+    my @lines;
+    while ( my $line = $in_fh->getline ) {
+        chomp $line;
+        push @lines, $line;
+    }
+    close $in_fh;
+
+    return @lines;
+}
 
 sub read_first_column {
     my $fn = shift;
 
     my @fields;
 
-    my @lines = App::RL::Common::read_lines($fn);
+    my @lines = read_lines($fn);
     for (@lines) {
         my ($first) = split /\t/;
         push @fields, $first;
@@ -44,7 +64,7 @@ sub read_column {
 
     tie my %result_of, "Tie::IxHash";
 
-    my @lines = App::RL::Common::read_lines($fn);
+    my @lines = read_lines($fn);
     for (@lines) {
         /^#/ and next;
         my @fields = split /\t/;
@@ -59,7 +79,7 @@ sub read_results {
 
     tie my %result_of, "Tie::IxHash";
 
-    my @lines = App::RL::Common::read_lines($fn);
+    my @lines = read_lines($fn);
     for (@lines) {
         /^#/ and next;
         my @fields = split /\t/;
