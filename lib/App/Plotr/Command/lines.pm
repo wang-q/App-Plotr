@@ -33,13 +33,13 @@ sub description {
     $desc .= <<'MARKDOWN';
 
 * <infile> is a tab-separated file
-    * First column for X, second for Y, and third for group
+    * The first column is X, the second column is Y, and the third column is the group.
 
 * --outfile can't be stdout
 
 * xl and yl can be plotmath
 
-        "Distance to indels ({italic(d)[1]})"
+    --xl "Distance to indels ({italic(d)[1]})"
 
 MARKDOWN
 

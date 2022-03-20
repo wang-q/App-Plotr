@@ -34,6 +34,13 @@ perl -I lib/ script/plotr xlsx t/formats.xlsx -o stdout
 
 perl -I lib/ t/05-xlsx.t
 
+# tsv
+perl -I lib/ script/plotr tsv t/mcox.05.result.tsv --header
+
+perl -I lib/ script/plotr tsv t/rocauc.result.tsv --header --le 4:0.5 --ge 4:0.6 --bt 4:0.52:0.58 --contain 1:m03
+
+perl -I lib/ t/06-tsv.t
+
 # lines
 perl -I lib/ script/plotr lines t/d1.tsv
 perl -I lib/ script/plotr lines t/d1.tsv --style red
@@ -44,11 +51,4 @@ perl -I lib/ script/plotr lines t/d1.tsv \
     --ymm 0.0,0.02 \
     --xmm 0,5
 
-perl -I lib/ t/06-lines.t
-
-# xlsx
-perl -I lib/ script/plotr tsv t/mcox.05.result.tsv --header
-
-perl -I lib/ script/plotr tsv t/rocauc.result.tsv --header --le 4:0.5 --ge 4:0.6 --bt 4:0.52:0.58 --contain 1:m03
-
-perl -I lib/ t/07-tsv.t
+perl -I lib/ t/07-lines.t
