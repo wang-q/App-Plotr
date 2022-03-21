@@ -48,6 +48,7 @@ perl -I lib/ script/plotr lines t/d1.tsv
 perl -I lib/ script/plotr lines t/d1.tsv --style red
 
 perl -I lib/ script/plotr lines t/d1.tsv \
+    --font Helvetica \
     --xl "Distance to indels ({italic(d)[1]})" \
     --yl "Nucleotide divergence ({italic(D)})" \
     --ymm 0.0,0.02 \

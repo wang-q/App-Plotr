@@ -13,12 +13,13 @@ sub abstract {
 sub opt_spec {
     return (
         [ "outfile|o=s", "Output filename", ],
-        [ "device=s", "png or pdf", { default => "pdf" }, ],
-        [ "xl=s",     "X label",    { default => "X" }, ],
-        [ "yl=s",     "Y label",    { default => "Y" }, ],
-        [ "xmm=s",    "X min,max", ],
-        [ "ymm=s",    "Y min,max", ],
-        [ "style=s",  "blue, red", ],
+        [ "device=s",    "png or pdf",         { default => "pdf" }, ],
+        [ "font=s",      "Arial or Helvetica", { default => "Arial" }, ],
+        [ "xl=s",         "X label", ],
+        [ "yl=s",         "Y label", ],
+        [ "xmm=s",       "X min,max", ],
+        [ "ymm=s",       "Y min,max", ],
+        [ "style=s",     "blue, red", ],
         { show_defaults => 1, }
     );
 }
@@ -63,7 +64,8 @@ sub validate_args {
     }
 
     if ( !exists $opt->{outfile} ) {
-        $opt->{outfile} = Path::Tiny::path( $args->[0] )->absolute . ".$opt->{device}";
+        $opt->{outfile} =
+          Path::Tiny::path( $args->[0] )->absolute . ".$opt->{device}";
     }
 
 }
@@ -77,30 +79,7 @@ sub execute {
     $R->set( 'file',    $args->[0] );
     $R->set( 'figfile', $opt->{outfile} );
 
-    # plotmath need to be escaped
-    if ( $opt->{xl} =~ /^(.+)(\{.+\})(.*)$/ ) {
-        my $lab_pre  = $1;
-        my $lab_exp  = $2;
-        my $lab_post = $3;
-        my $eval_code
-            = qq{eval(parse( text = \"x_lab <- expression(paste(\\\"$lab_pre\\\", $lab_exp, \\\"$lab_post\\\"))\" ))};
-        $R->run($eval_code);
-    }
-    else {
-        $R->set( 'x_lab', $opt->{xl} );
-    }
-    if ( $opt->{yl} =~ /^(.+)(\{.+\})(.*)$/ ) {
-        my $lab_pre  = $1;
-        my $lab_exp  = $2;
-        my $lab_post = $3;
-        my $eval_code
-            = qq{eval(parse( text = \"y_lab <- expression(paste(\\\"$lab_pre\\\", $lab_exp, \\\"$lab_post\\\"))\" ))};
-        $R->run($eval_code);
-    }
-    else {
-        $R->set( 'y_lab', $opt->{yl} );
-    }
-
+    # library
     $R->run(q{ library(readr) });
     $R->run(q{ library(ggplot2) });
     $R->run(q{ library(scales) });
@@ -108,64 +87,116 @@ sub execute {
 
     $R->run(
         qq{
-        plot_line <- function (plotdata) {
-            plot <- ggplot(data=plotdata, aes(x=X, y=Y, group=group)) +
-                geom_line(colour="grey") +
-                geom_point(colour="grey", fill="grey", shape=21, size=1) +
-                xlab(x_lab) + ylab(y_lab) +
+        plot_line <- function (plotdata, plotmap) {
+            plot <- ggplot(data=plotdata, mapping=plotmap) +
                 theme_bw(base_size = 10) +
-                guides(fill=FALSE) +
+                guides(fill="none") +
                 theme(panel.grid.major.x = element_blank(), panel.grid.major.y = element_blank()) +
                 theme(panel.grid.minor.x = element_blank(), panel.grid.minor.y = element_blank())
             return(plot)
         } }
     );
 
+    # device
     if ( $opt->{device} eq 'pdf' ) {
-        $R->run(q{ pdf(file=figfile, family="Arial", width = 3, height = 3, useDingbats=FALSE) });
+        $R->run(
+qq{ pdf(file=figfile, family="$opt->{font}", width = 3, height = 3, useDingbats=FALSE) }
+        );
     }
     elsif ( $opt->{device} eq 'png' ) {
-        $R->run(q{ png(file=figfile, family="Arial", width = 3, height = 3, units="in", res=200) });
+        $R->run(
+qq{ png(file=figfile, family="$opt->{font}", width = 3, height = 3, units="in", res=200) }
+        );
     }
     else {
         Carp::croak "Unrecognized device: [$opt->{device}]\n";
     }
 
-    $R->run(
-        qq{
-        mydata <- read_tsv(file, col_names = TRUE)
-        plot <- plot_line(mydata) }
-    );
+    $R->run(q{ mydata <- read_tsv(file, col_names = TRUE) });
 
+    # avoid aes_string which can't handle stat()
+    $R->run(qq{ x <- names(mydata)[1] });
+    my $x = $R->get('x');
+    $R->run(qq{ y <- names(mydata)[2] });
+    my $y = $R->get('y');
+    $R->run(qq{ g <- names(mydata)[3] });
+    my $g = $R->get('g');
+
+    $R->run(qq{ mymap <- aes( x=$x, y=$y, group=$g ) });
+    $R->run(q{ plot <- plot_line(mydata, mymap) });
+
+    # line and point
+    if ( defined $opt->{style} ) {
+        if ( $opt->{style} eq "blue" ) {
+            $R->run(
+                qq{
+                plot <- plot +
+                    geom_line(colour="deepskyblue", size = 0.5) +
+                    geom_point(colour="deepskyblue", fill="white", shape=23, size=1) }
+            );
+        }
+        elsif ( $opt->{style} eq "red" ) {
+            $R->run(
+                qq{
+                plot <- plot +
+                    geom_line(colour="indianred", size = 0.5) +
+                    geom_point(colour="indianred", fill="white", shape=22, size=1) }
+            );
+        }
+    }
+    else {
+        $R->run(
+            qq{
+            plot <- plot +
+                geom_line(colour="grey", size = 0.5) +
+                geom_point(colour="grey", fill="grey", shape=21, size=1) }
+        );
+    }
+
+    # plotmath need to be escaped
+    if ( defined $opt->{xl} ) {
+        if ( $opt->{xl} =~ /^(.*)(\{.+\})(.*)$/ ) {
+            my $lab_pre  = $1;
+            my $lab_exp  = $2;
+            my $lab_post = $3;
+            my $eval_code =
+qq{eval(parse( text = \"x_lab <- expression(paste(\\\"$lab_pre\\\", $lab_exp, \\\"$lab_post\\\"))\" ))};
+            $R->run($eval_code);
+        }
+        else {
+            $R->set( 'x_lab', $opt->{xl} );
+        }
+        $R->run(q{ plot <- plot + xlab(x_lab) });
+    }
+
+    if ( defined $opt->{yl} ) {
+        if ( $opt->{yl} =~ /^(.*)(\{.+\})(.*)$/ ) {
+            my $lab_pre  = $1;
+            my $lab_exp  = $2;
+            my $lab_post = $3;
+            my $eval_code =
+qq{eval(parse( text = \"y_lab <- expression(paste(\\\"$lab_pre\\\", $lab_exp, \\\"$lab_post\\\"))\" ))};
+            $R->run($eval_code);
+        }
+        else {
+            $R->set( 'y_lab', $opt->{yl} );
+        }
+        $R->run(q{ plot <- plot + ylab(y_lab) });
+    }
+
+    # xmm and ymm
     if ( defined $opt->{xmm} ) {
         $R->run(qq{ plot <- plot + scale_x_continuous(limits=c($opt->{xmm})) });
     }
     else {
         $R->run(qq{ plot <- plot + scale_x_continuous() });
     }
+
     if ( defined $opt->{ymm} ) {
         $R->run(qq{ plot <- plot + scale_y_continuous(limits=c($opt->{ymm})) });
     }
     else {
         $R->run(qq{ plot <- plot + scale_y_continuous() });
-    }
-
-    if ( defined $opt->{style} ) {
-        if ( $opt->{style} eq "blue" ) {
-            $R->run(
-                qq{
-                plot <- plot +
-                geom_line(colour="deepskyblue", size = 0.5) +
-                geom_point(colour="deepskyblue", fill="white", shape=23) }
-            );
-        }        elsif ( $opt->{style} eq "red" ) {
-            $R->run(
-                qq{
-                plot <- plot +
-                geom_line(colour="indianred", size = 0.5) +
-                geom_point(colour="indianred", fill="white", shape=22) }
-            );
-        }
     }
 
     $R->run(q{ print(plot) });

@@ -213,25 +213,6 @@ qq{eval(parse( text = \"y_lab <- expression(paste(\\\"$lab_pre\\\", $lab_exp, \\
         $R->run(qq{ plot <- plot + scale_y_continuous() });
     }
 
-    # if ( defined $opt->{style} ) {
-    #     if ( $opt->{style} eq "blue" ) {
-    #         $R->run(
-    #             qq{
-    #             plot <- plot +
-    #             geom_line(colour="deepskyblue", size = 0.5) +
-    #             geom_point(colour="deepskyblue", fill="white", shape=23) }
-    #         );
-    #     }
-    #     elsif ( $opt->{style} eq "red" ) {
-    #         $R->run(
-    #             qq{
-    #             plot <- plot +
-    #             geom_line(colour="indianred", size = 0.5) +
-    #             geom_point(colour="indianred", fill="white", shape=22) }
-    #         );
-    #     }
-    # }
-
     $R->run(q{ print(plot) });
     $R->run(q{ dev.off() });
 
