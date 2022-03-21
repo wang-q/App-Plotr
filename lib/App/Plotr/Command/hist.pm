@@ -13,7 +13,8 @@ sub abstract {
 sub opt_spec {
     return (
         [ "outfile|o=s",  "Output filename", ],
-        [ "device=s",     "png or pdf", { default => "pdf" }, ],
+        [ "device=s",     "png or pdf",         { default => "pdf" }, ],
+        [ "font=s",       "Arial or Helvetica", { default => "Arial" }, ],
         [ "xl=s",         "X label", ],
         [ "yl=s",         "Y label", ],
         [ "col|c=i",      "which column to count", { default => 1 }, ],
@@ -101,12 +102,12 @@ sub execute {
     # device
     if ( $opt->{device} eq 'pdf' ) {
         $R->run(
-q{ pdf(file=figfile, family="Arial", width = 3, height = 3, useDingbats=FALSE) }
+qq{ pdf(file=figfile, family="$opt->{font}", width = 3, height = 3, useDingbats=FALSE) }
         );
     }
     elsif ( $opt->{device} eq 'png' ) {
         $R->run(
-q{ png(file=figfile, family="Arial", width = 3, height = 3, units="in", res=200) }
+qq{ png(file=figfile, family="$opt->{font}", width = 3, height = 3, units="in", res=200) }
         );
     }
     else {

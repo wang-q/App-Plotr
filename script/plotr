@@ -77,6 +77,7 @@ perl -I lib/ script/plotr hist t/hist.tsv \
     --bins 2
 
 perl -I lib/ script/plotr hist t/hist.tsv \
+    --font Helvetica \
     -g 2 \
     --width 2 \
     --xl "Weight ({bold(M/F)})" \

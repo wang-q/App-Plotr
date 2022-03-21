@@ -41,7 +41,7 @@ App::Plotr draws miscellaneous plots via R
 
     # Install Perl and R
 
-    # R modules
+    # R packages
     parallel -j 1 -k --line-buffer '
         Rscript -e '\'' if (!requireNamespace("{}", quietly = TRUE)) { install.packages("{}", repos="https://mirrors.tuna.tsinghua.edu.cn/CRAN") } '\''
         ' ::: \
@@ -61,6 +61,7 @@ App::Plotr draws miscellaneous plots via R
     # rm -fr /usr/local/lib/R/3.6/site-library/extrafont/
     # rm -fr /usr/local/lib/R/3.6/site-library/extrafontdb/
 
+    # This module
     cpanm --installdeps https://github.com/wang-q/App-Plotr/archive/0.0.1.tar.gz
     curl -fsSL https://raw.githubusercontent.com/wang-q/App-Plotr/master/share/check_dep.sh | bash
 
