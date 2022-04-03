@@ -66,7 +66,7 @@ App::Plotr draws miscellaneous plots via R
 
 =head1 EXAMPLES
 
-=head2 Example `plotr venn`
+=head2 Example C<plotr venn>
 
     plotr venn t/rocauc.result.tsv t/mcox.05.result.tsv t/mcox.result.tsv --device png -o example/venn.png
 
@@ -76,7 +76,7 @@ App::Plotr draws miscellaneous plots via R
 
 =end html
 
-=head2 Example `plotr tree`
+=head2 Example C<plotr tree>
 
     plotr tree t/YDL184C.nwk --device png -o example/tree.png
 
@@ -86,7 +86,7 @@ App::Plotr draws miscellaneous plots via R
 
 =end html
 
-=head2 Example `plotr lines`
+=head2 Example C<plotr lines>
 
     plotr lines t/d1.tsv \
         --font Helvetica \
@@ -100,7 +100,7 @@ App::Plotr draws miscellaneous plots via R
 
 =end html
 
-=head2 Example `plotr hist`
+=head2 Example C<plotr hist>
 
     plotr hist t/hist.tsv \
         -g 2 \
@@ -115,7 +115,7 @@ App::Plotr draws miscellaneous plots via R
 
 =end html
 
-=head2 Example `plotr tsv`
+=head2 Example C<plotr tsv>
 
     plotr tsv t/rocauc.result.tsv \
         --header \

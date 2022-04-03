@@ -55,7 +55,7 @@ App::Plotr draws miscellaneous plots via R
 
 # EXAMPLES
 
-## Example \`plotr venn\`
+## Example `plotr venn`
 
     plotr venn t/rocauc.result.tsv t/mcox.05.result.tsv t/mcox.result.tsv --device png -o example/venn.png
 
@@ -63,7 +63,7 @@ App::Plotr draws miscellaneous plots via R
     <p><img src="https://raw.githubusercontent.com/wang-q/App-Plotr/master/example/venn.png" alt="Output from `plotr venn`" /></p>
 </div>
 
-## Example \`plotr tree\`
+## Example `plotr tree`
 
     plotr tree t/YDL184C.nwk --device png -o example/tree.png
 
@@ -71,7 +71,7 @@ App::Plotr draws miscellaneous plots via R
     <p><img src="https://raw.githubusercontent.com/wang-q/App-Plotr/master/example/tree.png" alt="Output from `plotr tree`" /></p>
 </div>
 
-## Example \`plotr lines\`
+## Example `plotr lines`
 
     plotr lines t/d1.tsv \
         --font Helvetica \
@@ -83,7 +83,7 @@ App::Plotr draws miscellaneous plots via R
     <p><img src="https://raw.githubusercontent.com/wang-q/App-Plotr/master/example/lines.png" alt="Output from `plotr lines`" /></p>
 </div>
 
-## Example \`plotr hist\`
+## Example `plotr hist`
 
     plotr hist t/hist.tsv \
         -g 2 \
@@ -96,7 +96,7 @@ App::Plotr draws miscellaneous plots via R
     <p><img src="https://raw.githubusercontent.com/wang-q/App-Plotr/master/example/hist.png" alt="Output from `plotr hist`" /></p>
 </div>
 
-## Example \`plotr tsv\`
+## Example `plotr tsv`
 
     plotr tsv t/rocauc.result.tsv \
         --header \
