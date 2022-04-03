@@ -14,6 +14,7 @@ App::Plotr - Miscellaneous plots via R
       commands: list the application's commands
           help: display a command's help screen
 
+          hist: histogram
          lines: scatter lines
           tree: draw newick trees
            tsv: convert tsv to xlsx
@@ -30,13 +31,13 @@ App::Plotr draws miscellaneous plots via R
 
     # Install Perl and R
 
-    # R modules
+    # R packages
     parallel -j 1 -k --line-buffer '
         Rscript -e '\'' if (!requireNamespace("{}", quietly = TRUE)) { install.packages("{}", repos="https://mirrors.tuna.tsinghua.edu.cn/CRAN") } '\''
         ' ::: \
             extrafont remotes \
             VennDiagram ggplot2 scales gridExtra \
-            readr ape survival pROC
+            readr ape
 
     # The Arial font under Ubuntu
     sudo apt install ttf-mscorefonts-installer
@@ -50,6 +51,7 @@ App::Plotr draws miscellaneous plots via R
     # rm -fr /usr/local/lib/R/3.6/site-library/extrafont/
     # rm -fr /usr/local/lib/R/3.6/site-library/extrafontdb/
 
+    # This module
     cpanm --installdeps https://github.com/wang-q/App-Plotr/archive/0.0.1.tar.gz
     curl -fsSL https://raw.githubusercontent.com/wang-q/App-Plotr/master/share/check_dep.sh | bash
 

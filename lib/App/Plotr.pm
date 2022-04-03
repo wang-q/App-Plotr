@@ -25,6 +25,7 @@ App::Plotr - Miscellaneous plots via R
       commands: list the application's commands
           help: display a command's help screen
 
+          hist: histogram
          lines: scatter lines
           tree: draw newick trees
            tsv: convert tsv to xlsx
@@ -47,11 +48,11 @@ App::Plotr draws miscellaneous plots via R
         ' ::: \
             extrafont remotes \
             VennDiagram ggplot2 scales gridExtra \
-            readr ape survival pROC
+            readr ape
 
     # The Arial font under Ubuntu
     sudo apt install ttf-mscorefonts-installer
-    sudo fc-cache -f
+    sudo fc-cache -fv
 
     # System fonts for R
     Rscript -e 'library(remotes); options(repos = c(CRAN = "https://mirrors.tuna.tsinghua.edu.cn/CRAN")); remotes::install_version("Rttf2pt1", version = "1.3.8")'
