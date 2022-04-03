@@ -4,6 +4,7 @@ perl:
   - "5.34"
   - "5.24"
   - "5.18"
+
 before_install:
   # Setting Up APT for R
   # https://www.digitalocean.com/community/tutorials/how-to-install-r-on-ubuntu-20-04
@@ -14,12 +15,20 @@ before_install:
   # fonts
   - echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
   - sudo apt-get install -qq ttf-mscorefonts-installer
-  - sudo fc-cache
+  - sudo fc-cache -fv
   # R modules
-  - sudo Rscript -e 'install.packages("extrafont", repos="http://cran.rstudio.com/")'
-  - sudo Rscript -e 'install.packages("VennDiagram", repos="http://cran.rstudio.com/")'
-  - sudo Rscript -e 'install.packages("ape", repos="http://cran.rstudio.com/")'
+  - sudo Rscript -e 'install.packages("extrafont", repos="https://cran.rstudio.com/")'
+  - sudo Rscript -e 'install.packages("remotes", repos="https://cran.rstudio.com/")'
+  - sudo Rscript -e 'install.packages("VennDiagram", repos="https://cran.rstudio.com/")'
+  - sudo Rscript -e 'install.packages("ggplot2", repos="https://cran.rstudio.com/")'
+  - sudo Rscript -e 'install.packages("scales", repos="https://cran.rstudio.com/")'
+  - sudo Rscript -e 'install.packages("gridExtra", repos="https://cran.rstudio.com/")'
+  - sudo Rscript -e 'install.packages("readr", repos="https://cran.rstudio.com/")'
+  - sudo Rscript -e 'install.packages("ape", repos="https://cran.rstudio.com/")'
+  - sudo Rscript -e 'install.packages("survival", repos="https://cran.rstudio.com/")'
+  - sudo Rscript -e 'install.packages("pROC", repos="https://cran.rstudio.com/")'
   # System fonts for R
+  - sudo Rscript -e 'library(remotes); options(repos = c(CRAN = "https://cran.rstudio.com/")); remotes::install_version("Rttf2pt1", version = "1.3.8")'
   - sudo Rscript -e 'library(extrafont); font_import(prompt = FALSE); fonts();'
 
 install:
