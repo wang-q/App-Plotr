@@ -66,13 +66,65 @@ App::Plotr draws miscellaneous plots via R
 
 =head1 EXAMPLES
 
-=head2 Example Venn
+=head2 Example `plotr venn`
 
     plotr venn t/rocauc.result.tsv t/mcox.05.result.tsv t/mcox.result.tsv --device png -o example/venn.png
 
 =begin html
 
-<p><center><img src="https://raw.githubusercontent.com/wang-q/App-Plotr/master/example/venn.png" alt="Output from plotr venn" /></center></p>
+<p><img src="https://raw.githubusercontent.com/wang-q/App-Plotr/master/example/venn.png" alt="Output from `plotr venn`" /></p>
+
+=end html
+
+=head2 Example `plotr tree`
+
+    plotr tree t/YDL184C.nwk --device png -o example/tree.png
+
+=begin html
+
+<p><img src="https://raw.githubusercontent.com/wang-q/App-Plotr/master/example/tree.png" alt="Output from `plotr tree`" /></p>
+
+=end html
+
+=head2 Example `plotr lines`
+
+    plotr lines t/d1.tsv \
+        --font Helvetica \
+        --xl "Distance to indels ({italic(d)[1]})" \
+        --yl "Nucleotide divergence ({italic(D)})" \
+        --device png -o example/lines.png
+
+=begin html
+
+<p><img src="https://raw.githubusercontent.com/wang-q/App-Plotr/master/example/lines.png" alt="Output from `plotr lines`" /></p>
+
+=end html
+
+=head2 Example `plotr hist`
+
+    plotr hist t/hist.tsv \
+        -g 2 \
+        --width 2 \
+        --xl "Weight ({bold(M/F)})" \
+        --ymm 0,45 \
+        --device png -o example/hist.png
+
+=begin html
+
+<p><img src="https://raw.githubusercontent.com/wang-q/App-Plotr/master/example/hist.png" alt="Output from `plotr hist`" /></p>
+
+=end html
+
+=head2 Example `plotr tsv`
+
+    plotr tsv t/rocauc.result.tsv \
+        --header \
+        --le 4:0.5 --ge 4:0.6 --bt 4:0.52:0.58 --contain 1:m03 \
+        -o example/tsv.xlsx
+
+=begin html
+
+<p><img src="https://raw.githubusercontent.com/wang-q/App-Plotr/master/example/tsv.png" alt="Output from `plotr tsv`" /></p>
 
 =end html
 
