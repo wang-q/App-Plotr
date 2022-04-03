@@ -58,15 +58,23 @@ App::Plotr draws miscellaneous plots via R
     Rscript -e 'library(remotes); options(repos = c(CRAN = "https://mirrors.tuna.tsinghua.edu.cn/CRAN")); remotes::install_version("Rttf2pt1", version = "1.3.8")'
     Rscript -e 'library(extrafont); font_import(prompt = FALSE); fonts();'
 
-    # On errors of missing font
-    # rm -fr /usr/local/lib/R/3.6/site-library/extrafont/
-    # rm -fr /usr/local/lib/R/3.6/site-library/extrafontdb/
-
     # This module
     cpanm --installdeps https://github.com/wang-q/App-Plotr/archive/0.0.1.tar.gz
     curl -fsSL https://raw.githubusercontent.com/wang-q/App-Plotr/master/share/check_dep.sh | bash
 
     cpanm -nq https://github.com/wang-q/App-Plotr.git
+
+=head1 EXAMPLES
+
+=head2 Example Venn
+
+    plotr venn t/rocauc.result.tsv t/mcox.05.result.tsv t/mcox.result.tsv --device png -o example/venn.png
+
+=begin html
+
+<p><center><img src="https://raw.githubusercontent.com/wang-q/App-Plotr/master/example/venn.png" alt="Output from plotr venn" /></center></p>
+
+=end html
 
 =head1 AUTHOR
 

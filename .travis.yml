@@ -3,7 +3,6 @@ language: perl
 perl:
   - "5.34"
   - "5.24"
-  - "5.18"
 
 before_install:
   # Setting Up APT for R
@@ -17,8 +16,8 @@ before_install:
   - sudo apt-get install -qq ttf-mscorefonts-installer
   - sudo fc-cache -fv
   # R modules
-  - sudo Rscript -e 'install.packages("extrafont", repos="https://cran.rstudio.com/")'
   - sudo Rscript -e 'install.packages("remotes", repos="https://cran.rstudio.com/")'
+  - sudo Rscript -e 'install.packages("extrafont", repos="https://cran.rstudio.com/")'
   - sudo Rscript -e 'install.packages("VennDiagram", repos="https://cran.rstudio.com/")'
   - sudo Rscript -e 'install.packages("ggplot2", repos="https://cran.rstudio.com/")'
   - sudo Rscript -e 'install.packages("scales", repos="https://cran.rstudio.com/")'
