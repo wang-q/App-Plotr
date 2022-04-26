@@ -78,7 +78,12 @@ sub execute {
     # R session
     my $R = Statistics::R->new;
 
-    $R->set( 'file',    $args->[0] );
+    if ( lc $args->[0] eq "stdin" ) {
+        $R->set( 'file', q(file("stdin")) );
+    }
+    else {
+        $R->set( 'file', $args->[0] );
+    }
     $R->set( 'figfile', $opt->{outfile} );
 
     # library
