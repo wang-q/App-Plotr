@@ -59,7 +59,6 @@ sub validate_args {
         $self->usage_error($message);
     }
     for ( @{$args} ) {
-        next if lc $_ eq "stdin";
         if ( !Path::Tiny::path($_)->is_file ) {
             $self->usage_error("The input file [$_] doesn't exist.");
         }
