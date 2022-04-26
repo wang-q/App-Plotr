@@ -38,7 +38,8 @@ sub description {
     $desc .= <<'MARKDOWN';
 
 * <infile> is a tab-separated file
-    * By default, the first column is X, and the second column is the optional group.
+    * By default, the first column is X, and the second column is the optional group
+    * The presence of a header is required
 
 * --outfile can't be stdout
 
@@ -78,19 +79,20 @@ sub execute {
     # R session
     my $R = Statistics::R->new;
 
-    if ( lc $args->[0] eq "stdin" ) {
-        $R->set( 'file', q(file("stdin")) );
-    }
-    else {
-        $R->set( 'file', $args->[0] );
-    }
-    $R->set( 'figfile', $opt->{outfile} );
-
     # library
     $R->run(q{ library(readr) });
     $R->run(q{ library(ggplot2) });
     $R->run(q{ library(scales) });
     $R->run(q{ library(extrafont) });
+
+    if ( lc $args->[0] eq "stdin" ) {
+        $R->run(q{ mydata <- read_tsv(file("stdin"), col_names = TRUE) });
+    }
+    else {
+        $R->set( 'file', $args->[0] );
+        $R->run(q{ mydata <- read_tsv(file, col_names = TRUE) });
+    }
+    $R->set( 'figfile', $opt->{outfile} );
 
     $R->run(
         qq{
@@ -118,8 +120,6 @@ qq{ png(file=figfile, family="$opt->{font}", width = 3, height = 3, units="in", 
     else {
         Carp::croak "Unrecognized device: [$opt->{device}]\n";
     }
-
-    $R->run(q{ mydata <- read_tsv(file, col_names = TRUE) });
 
     # avoid aes_string which can't handle stat()
     $R->run(qq{ x <- names(mydata)[$opt->{col}] });
