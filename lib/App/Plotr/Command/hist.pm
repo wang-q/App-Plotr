@@ -38,7 +38,8 @@ sub description {
     $desc .= <<'MARKDOWN';
 
 * <infile> is a tab-separated file
-    * By default, the first column is X, and the second column is the optional group.
+    * By default, the first column is X, and the second column is the optional group
+    * The presence of a header is required
 
 * --outfile can't be stdout
 
@@ -77,15 +78,18 @@ sub execute {
     # R session
     my $R = Statistics::R->new;
 
-    $R->set( 'file',    $args->[0] );
-    $R->set( 'figfile', $opt->{outfile} );
-
     # library
     $R->run(q{ library(readr) });
     $R->run(q{ library(ggplot2) });
     $R->run(q{ library(scales) });
     $R->run(q{ library(extrafont) });
 
+    # in and out
+    $R->set( 'file',    $args->[0] );
+    $R->run(q{ mydata <- read_tsv(file, col_names = TRUE) });
+    $R->set( 'figfile', $opt->{outfile} );
+
+    # plot setup
     $R->run(
         qq{
         plot_hist <- function (plotdata, plotmap) {
@@ -112,8 +116,6 @@ qq{ png(file=figfile, family="$opt->{font}", width = 3, height = 3, units="in", 
     else {
         Carp::croak "Unrecognized device: [$opt->{device}]\n";
     }
-
-    $R->run(q{ mydata <- read_tsv(file, col_names = TRUE) });
 
     # avoid aes_string which can't handle stat()
     $R->run(qq{ x <- names(mydata)[$opt->{col}] });
@@ -214,7 +216,6 @@ qq{eval(parse( text = \"y_lab <- expression(paste(\\\"$lab_pre\\\", $lab_exp, \\
 
     $R->run(q{ print(plot) });
     $R->run(q{ dev.off() });
-
 }
 
 1;
